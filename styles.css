@@ -187,34 +187,40 @@ section .wrap {
 }
 .hero .btn-primary { align-self: flex-start; }
 
-/* Compact credibility strip under the hero CTA. */
+/* Credibility stat card under the hero CTA. */
 .hero-cred {
-  list-style: none;
   margin: clamp(40px, 6vw, 64px) 0 0;
-  padding-top: clamp(24px, 3vw, 32px);
-  border-top: 1px solid var(--line-soft);
+  padding: clamp(24px, 3vw, 34px) clamp(24px, 4vw, 40px);
+  background: var(--bg-raise);
+  border: 1px solid var(--line-soft);
+  border-radius: 16px;
+  box-shadow: 0 1px 2px rgba(31, 28, 23, 0.04);
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.8rem 2.4rem;
-  font-size: 0.98rem;
+  gap: 1.6rem;
+}
+.cred-item { display: flex; flex-direction: column; gap: 0.35rem; }
+.hero-cred dt {
+  font-family: "Archivo", sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.6rem, 3.4vw, 2.2rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--accent);
+}
+.cred-unit { font-size: 0.6em; font-weight: 700; }
+.hero-cred dd {
+  margin: 0;
+  font-size: 0.95rem;
   color: var(--text-dim);
+  max-width: 26ch;
 }
-.hero-cred li {
-  position: relative;
-  padding-left: 1.4rem;
-}
-.hero-cred li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.62em;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-}
-@media (min-width: 760px) {
-  .hero-cred { grid-template-columns: repeat(3, auto); justify-content: start; }
+@media (min-width: 720px) {
+  .hero-cred {
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1.5rem, 3vw, 2.8rem);
+  }
+  .cred-item + .cred-item { padding-left: clamp(1.5rem, 3vw, 2.8rem); border-left: 1px solid var(--line-soft); }
 }
 
 /* ---------- About ---------- */
