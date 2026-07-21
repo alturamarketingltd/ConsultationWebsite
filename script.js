@@ -1,3 +1,28 @@
+// Tasteful scroll-reveal. Progressive enhancement: elements only get hidden if
+// JS runs and the visitor hasn't asked for reduced motion — otherwise everything
+// renders normally.
+(function () {
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce || !("IntersectionObserver" in window)) return;
+
+  var targets = [];
+  document.querySelectorAll("main > section:not(.hero) > .wrap > *").forEach(function (el) { targets.push(el); });
+
+  if (!targets.length) return;
+  targets.forEach(function (el) { el.classList.add("reveal"); });
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        e.target.classList.add("is-visible");
+        io.unobserve(e.target);
+      }
+    });
+  }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+
+  targets.forEach(function (el) { io.observe(el); });
+})();
+
 // Contact form — submits to Web3Forms via fetch so the visitor stays on the page.
 // Paste your access key into the hidden "access_key" input in index.html.
 

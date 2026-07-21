@@ -36,6 +36,19 @@ body {
   html { scroll-behavior: auto; }
 }
 
+/* Scroll-reveal. Class is added by JS only when motion is allowed, so with no
+   JS (or reduced motion) everything stays visible. */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
 .wrap {
   width: 100%;
   max-width: var(--max);
@@ -258,7 +271,10 @@ section .wrap {
   max-width: 58ch;
 }
 .about-photo {
+  position: relative;
   margin: 0;
+  border-radius: 14px;
+  overflow: hidden;
 }
 .about-photo img {
   display: block;
@@ -266,8 +282,17 @@ section .wrap {
   height: 100%;
   max-height: 560px;
   object-fit: cover;
-  border-radius: 14px;
   background: var(--line-soft);
+  filter: sepia(0.16) saturate(1.12) contrast(1.02) brightness(1.01);
+}
+/* Warm grade so the photo lives in the palette instead of reading as a snapshot. */
+.about-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(150deg, rgba(181, 81, 47, 0.22), rgba(181, 81, 47, 0.04) 55%, rgba(31, 28, 23, 0.14));
+  mix-blend-mode: soft-light;
+  pointer-events: none;
 }
 
 /* ---------- Past work ---------- */
